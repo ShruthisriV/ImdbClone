@@ -13,7 +13,7 @@ function WatchList({}) {
         let stringifiedWatchlist = localStorage.getItem("watchList");
         if(!stringifiedWatchlist) return;
         let watchList = JSON.parse(stringifiedWatchlist);
-        setWatchList(watchList);
+        setWatchList(WatchList);
     }, []);
 
     //compute the genreList once and then only when watchlist state is changed

@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import MovieCard from './MovieCard';
-import WatchList from './Watchlist';
+import WatchList from './WatchList';
 import { useDispatch, useSelector } from 'react-redux';
 import paginationSlice from '../redux/paginationSlice';
 import fetchMoviesMiddleware from '../moviesMiddleware';
