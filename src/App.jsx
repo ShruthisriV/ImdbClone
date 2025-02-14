@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Components/Home.jsx'
-import WatchList from './Components/Watchlist.jsx'
+import WatchList from './Components/WatchList.jsx'
 import Navbar from './Components/Navbar.jsx'
 import Context from './poc/Context.jsx'
 import ThemeManager from './poc/themes/ThemeManager.jsx'
@@ -19,7 +19,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
-          <Route path='/watchlist' element={<Watchlist/>}></Route>
+          <Route path='/watchlist' element={<WatchList/>}></Route>
         </Routes>
       </Provider>
       
