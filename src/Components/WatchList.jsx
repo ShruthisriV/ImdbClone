@@ -1,40 +1,60 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import genreids from '../utility';
+import { WatchListContext } from './Contexts/WatchListContext';
 
 function WatchList() {
-    const [watchList, setWatchList] = useState([]); // Changed to lowercase for consistency
+    // const [watchList, setWatchList] = useState([]); // Changed to lowercase for consistency
+    const {watchList, removeFromWatchlist, sortWatchList, loadWatchList} = useContext(WatchListContext); //contextAPI and added sortWatchList
     const [search, setSearch] = useState("");
     const [genreList, setGenreList] = useState([])
     const [currGenre, setCurrGenre] = useState("All Genres");
 
-    useEffect(() =>{
-        //fetch the watchlist from the local storage
-        let stringifiedWatchlist = localStorage.getItem("watchList");
-        if(!stringifiedWatchlist) return;
-        let watchList = JSON.parse(stringifiedWatchlist);
-        setWatchList(watchList);
-    }, []);
+    // useEffect(() =>{
+    //     //fetch the watchlist from the local storage
+    //     let stringifiedWatchlist = localStorage.getItem("watchList");
+    //     if(!stringifiedWatchlist) return;
+    //     let watchList = JSON.parse(stringifiedWatchlist);
+    //     setWatchList(watchList);
+    // }, []);
 
     //compute the genreList once and then only when watchlist state is changed
+    // useEffect(() => {
+    //     // 1. reduce -> {"action": 1, "romance":3} ->Object.keys
+    //     //2. get all genres-> map -> u get distinct genres
+    //     const allGenres = watchList.map(movie=>genreids[movie.genre_ids[0]]);
+    //     const allDistinctGenres = new Set(allGenres);
+    //     setGenreList(["All Genres", ...allDistinctGenres]);
+    // },[watchList]);
+
+
+    //contextAPI
+    // Add this useEffect to reload watchlist when component mounts
     useEffect(() => {
-        // 1. reduce -> {"action": 1, "romance":3} ->Object.keys
-        //2. get all genres-> map -> u get distinct genres
+        loadWatchList();
+    }, []);
+
+    useEffect(() => {
         const allGenres = watchList.map(movie=>genreids[movie.genre_ids[0]]);
         const allDistinctGenres = new Set(allGenres);
         setGenreList(["All Genres", ...allDistinctGenres]);
-
     },[watchList]);
 
     const handleAscendingRatings =() => {
-        let lowtohighSortedRatings=watchList.sort((a,b) => a.vote_average-b.vote_average)
-        setWatchList([...lowtohighSortedRatings]); //basic way
-        //do not alter the original source, i.e. watchList
+        // let lowtohighSortedRatings=watchList.sort((a,b) => a.vote_average-b.vote_average)
+        // setWatchList([...lowtohighSortedRatings]); //basic way
+        // //do not alter the original source, i.e. watchList
+        
+        //contextAPI
+        sortWatchList('asc');
     }
 
     const handleDescendingRatings = () => {
-        let hightolowSortedRatings=watchList.sort((a,b)=>b.vote_average-a.vote_average);
-        setWatchList([...hightolowSortedRatings]);
+        // let hightolowSortedRatings=watchList.sort((a,b)=>b.vote_average-a.vote_average);
+        // setWatchList([...hightolowSortedRatings]);
+        
+        //contextAPI
+        sortWatchList('desc');
     }
 
     const handleSearch = (e) => {
@@ -44,11 +64,11 @@ function WatchList() {
     const handleClick = (genre) => {
         setCurrGenre(genre);
     }
-    const removeFromWatchlist = (movieId) => {//written to delete function
-        let updatedWatchList = watchList.filter(movieObj => movieObj.id != movieId);
-        localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
-        setWatchList(updatedWatchList);
-    }
+    // const removeFromWatchlist = (movieId) => {//written to delete function
+    //     let updatedWatchList = watchList.filter(movieObj => movieObj.id != movieId);
+    //     localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
+    //     setWatchList(updatedWatchList);
+    // }
 
   return (
     <>

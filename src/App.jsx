@@ -10,17 +10,20 @@ import Context from './poc/Context.jsx'
 import ThemeManager from './poc/themes/ThemeManager.jsx'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
+import { WatchListProvider } from './Components/Contexts/WatchListContext.jsx'
 
 function App() {
 
   return (
     <>
       <Provider store={store}>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path='/watchlist' element={<WatchList/>}></Route>
-        </Routes>
+        <WatchListProvider>
+          <Navbar/>
+          <Routes>
+              <Route path="/" element={<Home/>}></Route>
+              <Route path='/watchlist' element={<WatchList/>}></Route>
+          </Routes>
+        </WatchListProvider>
       </Provider>
       
 
