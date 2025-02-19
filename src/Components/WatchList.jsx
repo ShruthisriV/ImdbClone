@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import genreids from '../utility';
 
-function WatchList({}) {
+function WatchList() {
     const [watchList, setWatchList] = useState([]); // Changed to lowercase for consistency
     const [search, setSearch] = useState("");
     const [genreList, setGenreList] = useState([])
@@ -13,7 +13,7 @@ function WatchList({}) {
         let stringifiedWatchlist = localStorage.getItem("watchList");
         if(!stringifiedWatchlist) return;
         let watchList = JSON.parse(stringifiedWatchlist);
-        setWatchList(WatchList);
+        setWatchList(watchList);
     }, []);
 
     //compute the genreList once and then only when watchlist state is changed
@@ -22,7 +22,7 @@ function WatchList({}) {
         //2. get all genres-> map -> u get distinct genres
         const allGenres = watchList.map(movie=>genreids[movie.genre_ids[0]]);
         const allDistinctGenres = new Set(allGenres);
-        setGenreList(["All Genres", ...allDistinctGenres])
+        setGenreList(["All Genres", ...allDistinctGenres]);
 
     },[watchList]);
 
@@ -131,7 +131,7 @@ function WatchList({}) {
                             <td className="pl-6 py-4">{movie.vote_average}</td>
                             <td className="pl-6 py-4">{movie.popularity}</td>
                             <td className="pl-2 py-4">{genreids[movie.genre_ids[0]]}</td>
-                            <td className="text-red-500 text-center py-9"><i class="fa-solid fa-trash-can cursor-pointer" onClick={() => removeFromWatchlist(movie.id)}></i></td>
+                            <td className="text-red-500 text-center py-9"><i className="fa-solid fa-trash-can cursor-pointer" onClick={() => removeFromWatchlist(movie.id)}></i></td>
                         </tr>
                     ))}
                 </tbody>

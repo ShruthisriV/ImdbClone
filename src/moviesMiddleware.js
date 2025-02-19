@@ -5,13 +5,20 @@ const fetchMoviesMiddleware = (pageNo) => {
     return async (dispatch) => {
         try{
             dispatch(actions.setLoading())
+            // const options = {
+            //     method: 'GET',
+            //     headers: {
+            //       accept: 'application/json',
+            //       Authorization: `Bearer `
+            //     }
+            // };
             const options = {
                 method: 'GET',
                 headers: {
+                  Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
                   accept: 'application/json',
-                  Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`
                 }
-            };
+              };
             const resp = await fetch(`https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${pageNo}`, options);
             const movies = await resp.json();
             console.log(movies);

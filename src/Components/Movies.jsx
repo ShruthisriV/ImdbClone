@@ -83,36 +83,33 @@ function Movies() {
     }, []);
 
     return (
-        <div>  
-            <div className="text-2xl font-bold text-center m-5">
-                <h1>Trending Movies</h1> {/* Added heading back */}
-            </div>
+        <>  
+        <div className="text-2xl font-bold text-center m-5">
+            <h1>Trending Movies</h1>
+        </div>
 
-            {/* Show movies here */}
-            <div className="flex justify-evenly flex-wrap gap-8">
-                {movies.map((movieObj) => {  // Changed variable name for consistency
-                    return(
-                        <MovieCard key={movieObj.id}  
-                        movieObject={movieObj} addToWatchList={addToWatchList}
-                        removeFromWatchlist={removeFromWatchlist} watchList={watchlist}>
-       
-                        </MovieCard>
-                    );
-            })}
-            </div>
+        <div className="flex justify-evenly flex-wrap gap-8">
+            {movies.map((movieObj) => (
+                <MovieCard 
+                    key={movieObj.id}  
+                    movieObject={movieObj} 
+                    addToWatchList={addToWatchList}
+                    removeFromWatchlist={removeFromWatchlist} 
+                    watchList={watchlist}
+                />
+            ))}
+        </div>
 
-            {/* pagination */}
-            <div className="bg-gray-400 p-4 h-[50px] w-full mt-8
-                flex justify-center gap-2">
-                <div className="px-8" onClick={handlePrevious}>
-                    <i className="fa-solid fa-arrow-left"></i>
-                </div>
-                <div>{pageNo}</div>
-                <div className="px-8" onClick={handleNext}>
-                    <i className="fa-solid fa-arrow-right"></i>
-                </div>
+        <div className="bg-gray-400 p-4 h-[50px] w-full mt-8 flex justify-center gap-2">
+            <div className="px-8" onClick={handlePrevious}>
+                <i className="fa-solid fa-arrow-left"></i>
+            </div>
+            <div>{pageNo}</div>
+            <div className="px-8" onClick={handleNext}>
+                <i className="fa-solid fa-arrow-right"></i>
             </div>
         </div>
+    </>
     )
 }
 
