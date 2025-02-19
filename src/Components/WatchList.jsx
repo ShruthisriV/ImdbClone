@@ -18,6 +18,7 @@ function WatchList() {
     //     setWatchList(watchList);
     // }, []);
 
+    
     //compute the genreList once and then only when watchlist state is changed
     // useEffect(() => {
     //     // 1. reduce -> {"action": 1, "romance":3} ->Object.keys
